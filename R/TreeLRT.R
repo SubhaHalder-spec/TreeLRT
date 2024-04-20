@@ -65,7 +65,7 @@ TreeLRT <- function(sample_data, significance_level){
       new_var1 <- sapply(1:length(sample_data_list), function(i) (sum((sample_data_list[[i]] - new_mu1)^2)) / sample_sizes[i])
       new_u1 <- sample_sizes / new_var1
 
-      if (max(abs(new_mu1 - mu1)) <= 0.000000000000001) {
+      if (max(abs(new_mu1 - mu1)) <= 0.0000001) {
         break  # Exit the loop if the difference is less than epsilon
       }
 
@@ -87,7 +87,7 @@ TreeLRT <- function(sample_data, significance_level){
       new_var0 <- sapply(1:length(sample_data_list), function(i) (sum((sample_data_list[[i]] - new_mu0[i])^2)) / n[i])
       new_w0 <- n / new_var0
 
-      if (max(abs(new_mu0 - mu0)) <= 0.000000000000001) {
+      if (max(abs(new_mu0 - mu0)) <= 0.0000001) {
         break  # Exit the loop if the difference is less than epsilon
       }
 
