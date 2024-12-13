@@ -12,11 +12,21 @@
 TreeLRT <- function(sample_data, significance_level){
   set.seed(456)
   R_MLE <- function(X, n) {
-    X1 <- X[-1]
-    n1 <- n[-1]
-    sorted_indices <- order(X1)
-    X1_sorted <- X1[sorted_indices]
-    n1_sorted <- n1[sorted_indices]
+  X1 <- X[-1]
+  n1 <- n[-1]
+  sorted_indices <- order(X1)
+  X1_sorted <- X1[sorted_indices]
+  n1_sorted <- n1[sorted_indices]
+  if (length(X)==2){
+    if (all(X1 < X[1])){
+      new_X <- c((X[1]*n[1]+X[2]*n[2])/sum(n),(X[1]*n[1]+X[2]*n[2])/sum(n))
+    }
+    else{
+      new_X <- X
+    }
+    return(new_X)
+  }
+  else {
     A <- numeric(length(X1_sorted))
     for (j in 2:length(X)) {
       A[j-1] <- (n[1] * X[1] + sum(n1_sorted[1:(j - 1)] * X1_sorted[1:(j - 1)])) /
@@ -51,6 +61,7 @@ TreeLRT <- function(sample_data, significance_level){
     }
     return(new_X)
   }
+}
 
   LRT_H0_new <- function(sample_data_list) {
     means <- sapply(sample_data_list, mean)
